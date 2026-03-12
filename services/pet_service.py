@@ -14,9 +14,9 @@ class PetService(BaseService):
         POST   /pet/{petId}/uploadFile       — Upload a pet image
     """
     # End points
-    PET_ENDPOINT = "/pet"
     PET_BY_ID_ENDPOINT = "/pet/{pet_id}"
-    FIND_BY_STATUS = "/pet/findByStatus"
+    PET_ENDPOINT       = "/pet"
+    FIND_BY_STATUS     = "/pet/findByStatus"
 
 
     def get_pet_by_id(self, pet_id):
