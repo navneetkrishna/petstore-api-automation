@@ -8,7 +8,11 @@ class BaseService:
         self.session = requests.Session()
         self.headers = config.HEADERS
         self.timeout = config.TIMEOUT
-        self.session.headers.update(self.headers)
+        self.session.headers.update({
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+            "api_key": config.API_KEY,
+        })
 
 
     def get(self, endpoint, params=None):
