@@ -64,7 +64,7 @@ USER_SCHEMA = {
 # Assertion helpers
 # ------------------------------------------------------------------
 
-def assert_status(response, expected: int):
+def assert_status(response, expected):
     """Assert HTTP status code with a clear failure message."""
     assert response.status_code == expected, (
         f"Expected status {expected}, got {response.status_code}.\n"
@@ -73,7 +73,7 @@ def assert_status(response, expected: int):
     )
 
 
-def assert_schema(data: dict, schema: dict):
+def assert_schema(data, schema):
     """Validate a response dict against a JSON schema.
 
     Raises AssertionError with a clear message on schema violation.
@@ -88,7 +88,7 @@ def assert_schema(data: dict, schema: dict):
         )
 
 
-def assert_field_equals(response_body: dict, field: str, expected):
+def assert_field_equals(response_body, field, expected):
     """Assert a top-level field in the response body equals expected value."""
     actual = response_body.get(field)
     assert actual == expected, (
@@ -96,7 +96,7 @@ def assert_field_equals(response_body: dict, field: str, expected):
     )
 
 
-def assert_field_not_empty(response_body: dict, field: str):
+def assert_field_not_empty(response_body, field):
     """Assert a top-level field exists and is not None / empty."""
     value = response_body.get(field)
     assert value is not None and value != "" and value != [], (

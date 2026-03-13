@@ -4,7 +4,7 @@ from faker import Faker
 fake = Faker()
 
 
-def make_pet(status: str = "available", pet_id: int = None) -> dict:
+def make_pet(status = "available", pet_id = None):
     """Generate a valid pet payload.
 
     Args:
@@ -29,7 +29,7 @@ def make_pet(status: str = "available", pet_id: int = None) -> dict:
     }
 
 
-def make_order(pet_id: int, quantity: int = 1, status: str = "placed") -> dict:
+def make_order(pet_id, quantity= 1, status= "placed"):
     """Generate a valid store order payload.
 
     Args:
@@ -50,7 +50,7 @@ def make_order(pet_id: int, quantity: int = 1, status: str = "placed") -> dict:
     }
 
 
-def make_user(username: str = None) -> dict:
+def make_user(username= None):
     """Generate a valid user payload.
 
     Args:
