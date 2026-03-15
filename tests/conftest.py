@@ -1,9 +1,8 @@
 import pytest
-
-from src.api.pet_client import PetClient
-from src.api.store_client import StoreClient
-from src.api.user_client import UserClient
-from src.utils.data_factory import make_pet, make_order, make_user
+from services.pet_service import PetService
+from services.store_service import StoreService
+from services.user_service import UserService
+from util.data_factory import make_pet, make_order, make_user
 
 
 # ------------------------------------------------------------------
@@ -11,21 +10,21 @@ from src.utils.data_factory import make_pet, make_order, make_user
 # ------------------------------------------------------------------
 
 @pytest.fixture(scope="session")
-def pet_client() -> PetClient:
-    """Shared PetClient instance for the entire test session."""
-    return PetClient()
+def pet_service():
+    """Shared PetService instance for the entire test session."""
+    return PetService()
 
 
 @pytest.fixture(scope="session")
-def store_client() -> StoreClient:
-    """Shared StoreClient instance for the entire test session."""
-    return StoreClient()
+def store_client():
+    """Shared StoreService instance for the entire test session."""
+    return StoreService()
 
 
 @pytest.fixture(scope="session")
-def user_client() -> UserClient:
-    """Shared UserClient instance for the entire test session."""
-    return UserClient()
+def user_client():
+    """Shared UserService instance for the entire test session."""
+    return UserService()
 
 
 # ------------------------------------------------------------------
@@ -33,13 +32,13 @@ def user_client() -> UserClient:
 # ------------------------------------------------------------------
 
 @pytest.fixture(scope="function")
-def created_pet(pet_client):
+def created_pet(pet_service):
     """Create a fresh 'available' pet before a test and delete it after.
 
     Yields the full response body dict so tests can read any field.
     """
     payload = make_pet(status="available")
-    response = pet_client.create_pet(payload)
+    response = pet_service.create_pet(payload)
     assert response.status_code == 200, \
         f"[Fixture] Failed to create pet. Status: {response.status_code}, Body: {response.text}"
 
@@ -47,11 +46,11 @@ def created_pet(pet_client):
     yield pet
 
     # Teardown — best-effort delete; ignore 404 if already deleted by the test
-    pet_client.delete_pet(pet["id"])
+    pet_service.delete_pet(pet["id"])
 
 
 @pytest.fixture(scope="function")
-def created_order(pet_client, store_client, created_pet):
+def created_order(pet_service, store_client, created_pet):
     """Place a fresh order for the created_pet and delete it after.
 
     Depends on created_pet so the pet always exists before the order is placed.
