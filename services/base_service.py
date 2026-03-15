@@ -1,4 +1,6 @@
 import requests
+from requests import Response
+
 import config
 
 class BaseService:
@@ -48,3 +50,26 @@ class BaseService:
             f"{self.base_url}{endpoint}",
             timeout=self.timeout
         )
+
+
+    # ------------------------------------------------------------------
+    # Response helpers
+    # ------------------------------------------------------------------
+
+    def json(self, response: Response) -> dict | list:
+        """Parse and return the response body as JSON.
+
+        Raises ValueError with a clear message if the body is not valid JSON.
+        """
+        try:
+            return response.json()
+        except Exception:
+            raise ValueError(
+                f"Response body is not valid JSON.\n"
+                f"Status: {response.status_code}\n"
+                f"Body: {response.text[:500]}"
+            )
+
+    def is_success(self, response: Response) -> bool:
+        """Return True if the response status is in the 2xx range."""
+        return 200 <= response.status_code < 300

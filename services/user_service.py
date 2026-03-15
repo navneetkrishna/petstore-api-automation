@@ -1,7 +1,7 @@
 from .base_service import BaseService
 
 
-class UserClient(BaseService):
+class UserService(BaseService):
     """API client for the /user domain.
 
     Endpoint reference:
