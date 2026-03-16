@@ -16,13 +16,13 @@ def pet_service():
 
 
 @pytest.fixture(scope="session")
-def store_client():
+def store_service():
     """Shared StoreService instance for the entire test session."""
     return StoreService()
 
 
 @pytest.fixture(scope="session")
-def user_client():
+def user_service():
     """Shared UserService instance for the entire test session."""
     return UserService()
 
@@ -50,14 +50,14 @@ def created_pet(pet_service):
 
 
 @pytest.fixture(scope="function")
-def created_order(pet_service, store_client, created_pet):
+def created_order(pet_service, store_service, created_pet):
     """Place a fresh order for the created_pet and delete it after.
 
     Depends on created_pet so the pet always exists before the order is placed.
     Yields the full order response body dict.
     """
     payload = make_order(pet_id=created_pet["id"])
-    response = store_client.place_order(payload)
+    response = store_service.place_order(payload)
     assert response.status_code == 200, \
         f"[Fixture] Failed to place order. Status: {response.status_code}, Body: {response.text}"
 
@@ -65,7 +65,7 @@ def created_order(pet_service, store_client, created_pet):
     yield order
 
     # Teardown
-    store_client.delete_order(order["id"])
+    store_service.delete_order(order["id"])
 
 
 @pytest.fixture(scope="function")

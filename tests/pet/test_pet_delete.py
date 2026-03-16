@@ -3,7 +3,7 @@ import pytest
 from util.assertions import assert_status
 from util.data_factory import make_pet
 
-pytestmark = [pytest.mark.regression, pytest.mark.pet, pytest.mark.demo]
+pytestmark = [pytest.mark.regression, pytest.mark.pet]
 
 
 class TestPetDelete:
