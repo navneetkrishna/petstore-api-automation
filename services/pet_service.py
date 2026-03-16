@@ -33,5 +33,5 @@ class PetService(BaseService):
             self.PET_BY_ID_ENDPOINT.format(pet_id=pet_id)
         )
 
-    def find_pet_by_status(self, status):
+    def find_by_status(self, status):
         return self.get(self.FIND_BY_STATUS, params={"status": status})
