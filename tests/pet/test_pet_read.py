@@ -71,7 +71,7 @@ class TestPetRead:
         Note: /pet/findByStatus return a list of objects
         """
 
-        response = pet_service.find_pet_by_status(status)
+        response = pet_service.find_by_status(status)
 
         assert_status(response, 200)
 
