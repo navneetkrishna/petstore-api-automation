@@ -69,18 +69,18 @@ def created_order(pet_service, store_service, created_pet):
 
 
 @pytest.fixture(scope="function")
-def created_user(user_client):
+def created_user(user_service):
     """Create a fresh user before a test and delete it after.
 
     Yields the original payload dict (Petstore's POST /user only returns
     a message, not the full user object).
     """
     payload = make_user()
-    response = user_client.create_user(payload)
+    response = user_service.create_user(payload)
     assert response.status_code == 200, \
         f"[Fixture] Failed to create user. Status: {response.status_code}, Body: {response.text}"
 
     yield payload
 
     # Teardown
-    user_client.delete_user(payload["username"])
+    user_service.delete_user(payload["username"])
