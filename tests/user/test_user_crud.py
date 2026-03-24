@@ -4,7 +4,7 @@ from util.assertions import assert_status, assert_schema, assert_field_equals, a
 from util.assertions import USER_SCHEMA
 from util.data_factory import make_user
 
-pytestmark = [pytest.mark.regression, pytest.mark.user, pytest.mark.demo]
+pytestmark = [pytest.mark.regression, pytest.mark.user]
 
 
 class TestUserCRUD:
