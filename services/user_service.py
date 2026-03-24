@@ -17,7 +17,7 @@ class UserService(BaseService):
 
     USER_WITH_LIST_ENDPOINT = "/user/createWithList"
     USER_ENDPOINT           = "/user"
-    USERNAME_ENDPOINT       = "/user{username}"
+    USERNAME_ENDPOINT       = "/user/{username}"
     LOGIN_ENDPOINT          = "/user/login"
     LOGOUT_ENDPOINT         = "/user/logout"
 
@@ -57,12 +57,12 @@ class UserService(BaseService):
 
     def get_user(self, username):
         """GET /user/{username} — Retrieve a user by username."""
-        return self.get(self.USERNAME_ENDPOINT)
+        return self.get(self.USERNAME_ENDPOINT.format(username=username))
 
     def update_user(self, username, payload):
         """PUT /user/{username} — Update a user's details."""
-        return self.put(self.USERNAME_ENDPOINT, payload)
+        return self.put(self.USERNAME_ENDPOINT.format(username=username), payload)
 
     def delete_user(self, username):
         """DELETE /user/{username} — Delete a user."""
-        return self.delete(self.USERNAME_ENDPOINT)
+        return self.delete(self.USERNAME_ENDPOINT.format(username=username))
